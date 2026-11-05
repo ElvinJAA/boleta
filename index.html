@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>Control de Rifa | iPhone 17 Pro Max</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Inicio">
+        <span class="brand-mark">✦</span>
+        <span>RAFFLE<span class="brand-muted">.LUXE</span></span>
+      </a>
+      <span class="live-indicator"><i></i> CONTROL DE RIFA</span>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">EDICIÓN EXCLUSIVA · 2026</p>
+        <h1>iPhone 17 Pro Max</h1>
+        <p class="hero-subtitle">Panel de control de boletas</p>
+        <div class="hero-meta">
+          <span>Boletas <strong>3326–3400</strong></span>
+          <span class="meta-dot"></span>
+          <span><strong>RD$200</strong> por número</span>
+        </div>
+      </div>
+      <div class="phone-art" aria-hidden="true">
+        <div class="phone-glow"></div>
+        <div class="phone">
+          <div class="camera camera-one"></div><div class="camera camera-two"></div><div class="camera camera-three"></div>
+          <div class="phone-logo"></div>
+          <div class="phone-side"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Resumen de la rifa">
+      <article class="stat-card">
+        <span class="stat-label">Boletas totales</span><strong id="totalTickets">75</strong><span class="stat-foot">Numeración completa</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Disponibles</span><strong id="availableCount" class="gold-text">75</strong><span class="stat-foot">Listas para asignar</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Reservadas</span><strong id="reservedCount">0</strong><span class="stat-foot">Pendientes de pago</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Vendidas</span><strong id="soldCount">0</strong><span class="stat-foot">Pagos confirmados</span>
+      </article>
+      <article class="stat-card stat-revenue">
+        <span class="stat-label">Dinero recaudado</span><strong id="revenue">RD$0</strong><span class="stat-foot">Solo boletas pagadas</span>
+      </article>
+    </section>
+
+    <section class="progress-panel">
+      <div class="progress-heading"><div><p class="eyebrow">AVANCE DE LA RIFA</p><h2>Estado de las boletas</h2></div><strong id="progressText">0% vendido</strong></div>
+      <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+      <div class="legend"><span><i class="dot available-dot"></i>Disponibles</span><span><i class="dot reserved-dot"></i>Reservadas</span><span><i class="dot sold-dot"></i>Vendidas</span></div>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel form-panel">
+        <div class="section-heading"><div><p class="eyebrow">NUEVO REGISTRO</p><h2>Registrar comprador</h2></div><span class="plus-icon">＋</span></div>
+        <form id="ticketForm">
+          <label>Nombre del comprador<input id="buyerName" type="text" placeholder="Ej. Juan Pérez" maxlength="70" required></label>
+          <label>Teléfono <span class="optional">(opcional)</span><input id="buyerPhone" type="tel" placeholder="Ej. 809-000-0000" maxlength="25"></label>
+          <label>Números de boletas <span class="optional">separa varios con coma</span><input id="ticketNumbers" type="text" placeholder="Ej. 3326, 3327, 3330" required></label>
+          <p class="hint">Puedes registrar varias boletas para una misma persona. Solo se aceptan números disponibles del 3326 al 3400.</p>
+          <label>Estado inicial
+            <select id="ticketStatus"><option value="reserved">Reservada · pendiente de pago</option><option value="sold">Vendida · pagada</option></select>
+          </label>
+          <div class="purchase-total"><span>Total de esta operación</span><strong id="purchaseTotal">RD$0</strong></div>
+          <button class="primary-button" type="submit">＋ Guardar registro</button>
+          <p id="formMessage" class="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section class="panel ticket-panel">
+        <div class="section-heading"><div><p class="eyebrow">VISTA GENERAL</p><h2>Mapa de boletas</h2></div><span class="range-label">3326 — 3400</span></div>
+        <div class="ticket-grid" id="ticketGrid"></div>
+        <p class="hint map-hint">Toca una boleta para ver quién la tiene y cambiar su estado.</p>
+      </section>
+    </section>
+
+    <section class="panel records-panel">
+      <div class="section-heading records-heading"><div><p class="eyebrow">MOVIMIENTOS</p><h2>Compradores registrados</h2></div><input id="searchInput" class="search-input" type="search" placeholder="Buscar nombre, teléfono o boleta…"></div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Comprador</th><th>Teléfono</th><th>Boletas</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="recordsBody"></tbody></table>
+      </div>
+      <p id="emptyRecords" class="empty-state">Todavía no hay compradores registrados.</p>
+      <div class="data-actions"><button id="exportButton" class="secondary-button" type="button">↓ Exportar CSV</button><button id="backupButton" class="secondary-button" type="button">Guardar copia de seguridad</button><label class="secondary-button import-label">Importar copia<input id="importInput" type="file" accept="application/json" hidden></label></div>
+      <p class="privacy-note">Tus registros se guardan en este navegador. Exporta una copia de seguridad para conservarlos o pasarlos a otro dispositivo.</p>
+    </section>
+    <footer>RAFFLE.LUXE <span>·</span> Panel privado de administración</footer>
+  </main>
+
+  <dialog id="ticketDialog" class="ticket-dialog">
+    <form method="dialog" class="dialog-close"><button aria-label="Cerrar">×</button></form>
+    <p class="eyebrow">DETALLE DE BOLETA</p><h2 id="dialogTicketNumber">Boleta 3326</h2>
+    <div id="dialogDetails" class="dialog-details"></div>
+    <div class="dialog-actions"><button id="markReserved" class="secondary-button" type="button">Marcar reservada</button><button id="markSold" class="primary-button compact" type="button">Marcar vendida</button><button id="releaseTicket" class="danger-button" type="button">Liberar boleta</button></div>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
